@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<interest>
+    <photo>leica</photo>
+    <photo>ikon</photo>
+    <photo>ZM</photo>
+    <photo>zeiss</photo>
+    <photo>LTM</photo>
+
+    <photo>manfrotto</photo>
+    <photo>RRS</photo>
+    <photo>Really Right Stuff</photo>
+    <photo>gitzo</photo>
+
+    <photo>sekonic</photo>
+    <photo>l-398</photo>
+    <photo>minolta auto meter</photo>
+    <photo>pocket wizard</photo>
+
+    <photo>magnum</photo>
+
+    <photo>voigtlander</photo>
+    <photo>bessa</photo>
+    <photo>bessa-r</photo>
+    <photo>r2a</photo>
+    <photo>r2m</photo>
+    <photo>r3a</photo>
+    <photo>r3m</photo>
+
+    <photo>nokton</photo>
+    <photo>VM</photo>
+    <photo>scopar</photo>
+    <photo>summicron</photo>
+    <photo>planar</photo>
+    <photo>limited</photo>
+
+    <cycle>mavic</cycle>
+    <cycle>hope</cycle>
+    <cycle>tune</cycle>
+    <cycle>chris king</cycle>
+    <cycle>garbaruk</cycle>
+    <cycle>xtr</cycle>
+    <cycle>thomson</cycle>
+    <cycle>tsg nose dive</cycle>
+    <cycle></cycle>
+</interest>

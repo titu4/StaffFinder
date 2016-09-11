@@ -1,6 +1,6 @@
 package finder.forum;
 
-import finder.Item;
+import finder.Thread;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,63 +8,57 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by dmitrijtitenko on /87/16.
- */
-public class FotoUa implements Forum {
-
-    private String currUrl;
-    Elements htmlList;
-    List<String> urlList = new ArrayList<>();
+public class FotoUa extends HTMLpage {
 
     public FotoUa() {
-        load();
-        currUrl = urlList.get(1);
-    }
+        section = "photo";
+        title = "foto.ua";
 
-    private void load() {
-        urlList.add("http://foto.ua/forum/forums/54-plenochnyie-kameryi"); //film cameras
-        urlList.add("http://foto.ua/forum/forums/64-prochee"); //lens->other
+        load();
     }
 
     public void get() {
-        try {
-            Connection connection = Jsoup.connect(currUrl);
-            connection.execute();
-            Connection.Response response = connection.response();
+        for(String currURL:urlList) {
+            for(int i=1;i<=5;i++) {
 
-            if(response.statusCode()==200) {
-                Document document = connection.get();
-                htmlList = document.select("li.threadbit");
-            } else {
-                System.out.println("Page not found!");
+                try {
+                    Connection connection = Jsoup.connect(currURL + "/page" + i + "?order=desc");
+                    connection.execute();
+                    Connection.Response response = connection.response();
+
+                    if (response.statusCode() == 200) {
+                        Document document = connection.get();
+                        htmlList.add(document.select("li.threadbit"));
+                    } else {
+                        System.out.println("Page not found!");
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
+        parse();
     }
 
-    public List<Item> parse() {
-        List<Item> itemsList = new ArrayList<>();
+    protected void parse() {
+        for(Elements elements:htmlList) {
+            for (Element element : elements) {
+                if (!"gaw".equals(element.attr("id"))) {
+                    Thread thread = new Thread();
 
-        for(Element element: htmlList){
-            if(!"gaw".equals(element.attr("id"))) {
-                Item item = new Item();
+                    Element a = element.select("a[href]").first();
+                    Element info = element.select("div.threadinfo").first();
 
-                Element a = element.select("a[href]").first();
-                Element info = element.select("div.threadinfo").first();
+                    thread.setText(a.text());
+                    thread.setLink( "http://" + title + "/forum/" + a.attr("href"));
+                    thread.setTitle(info.attr("title"));
 
-                item.setText(a.text());
-                item.setTitle(info.attr("title"));
-
-                itemsList.add(item);
+                    threads.add(thread);
+                }
             }
         }
-
-        return itemsList;
     }
 }
