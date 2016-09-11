@@ -1,52 +1,43 @@
 package finder.forum;
 
-import finder.Item;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by dmitrijtitenko on /87/16.
- */
+public class PelotonComUa extends HTMLpage {
 
-public class PelotonComUa implements Forum {
-
-    private String url;
     private Elements lists;
-    List<String> urlList = new ArrayList<>();
 
     public PelotonComUa() {
-        load();
-        url = urlList.get(1);
-    }
+        section = "cycle";
+        title = "peloton.com.ua";
 
-    private void load() {
-        urlList.add("http://peloton.com.ua/finder.forum/viewforum.php?f=223");
+        load();
     }
 
     public void get() {
-        try {
-            Document doc = Jsoup.connect(url).get();
-            lists = doc.select("ul.topiclist.topics>li>dl>dt");
-        } catch (IOException e) {
-            e.printStackTrace();
+        for(String currURL:urlList) {
+            try {
+                Connection connection = Jsoup.connect(currURL);
+                connection.execute();
+                Connection.Response response = connection.response();
+
+                if (response.statusCode() == 200) {
+                    Document document = connection.get();
+                    htmlList.add(document.select("ul.topiclist.topics>li>dl>dt"));
+                } else {
+                    System.out.println("Page not found!");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void print() {
-        for(Element thread: lists){
-            Element a = thread.select("a[href]").first();
-            System.out.println(thread.text());
-        }
-    }
-
-    @Override
-    public List<Item> parse() {
-        return null;
+    public void parse() {
     }
 }
