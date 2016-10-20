@@ -52,7 +52,7 @@ public class TouristKharkovUa extends HTMLpage {
             int i = 0;
             for (Element element : elements) {
                 i++;
-                if(i>6 && i<45) {
+                if((i>6 && i<45) && element.attr("align").isEmpty()) {
 
                     Thread thread = new Thread();
 
