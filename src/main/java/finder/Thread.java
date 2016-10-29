@@ -1,9 +1,13 @@
 package finder;
 
+import org.apache.log4j.Logger;
+
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 
 public class Thread {
+
+    Logger logger = Logger.getLogger("Thread");
 
     private String keyword;
     private String title;
@@ -24,11 +28,12 @@ public class Thread {
 
     public void setLink(String link) { this.link = link; }
 
-    public void print() {
-        System.out.println("++++++");
-        System.out.println(link);
-        System.out.println(title);
-        System.out.println(text);
+    public void log() {
+        logger.info(logger.getName());
+        logger.info("-->" + getKeyword() + "!");
+        logger.info(getTitle());
+        logger.info(getDesc());
+        logger.info(getLink());
     }
 
     public boolean search(String i) {

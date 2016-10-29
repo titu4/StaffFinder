@@ -1,6 +1,7 @@
 package finder.forum;
 
 import finder.Thread;
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +15,7 @@ public class TouristKharkovUa extends HTMLpage {
     private static String baseURL;
 
     public TouristKharkovUa() {
+        logger = Logger.getLogger("XT");
         section = "cycle";
         title = "tourist.kharkov.ua";
 
@@ -25,6 +27,7 @@ public class TouristKharkovUa extends HTMLpage {
             baseURL = currURL;
             for(int i=0 ; i<=1360 ; i = i+20) {
                 String url = currURL + "viewforum.php?f=44&sk=m&sd=d&start=" + i;
+                logger.debug("[" + logger.getName() + "]" + "get: " + url);
                 try {
                     Connection connection = Jsoup.connect(url);
                     connection.timeout(0);
@@ -35,11 +38,12 @@ public class TouristKharkovUa extends HTMLpage {
                         Document document = connection.get();
                         htmlList.add(document.select("#pagecontent > table.tablebg > tbody > tr"));
                     } else {
-                        System.out.println("Page not found!");
+                        logger.error(logger.getName() +
+                                "\nPage not found");
                     }
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e.getStackTrace());
                 }
             }
         }

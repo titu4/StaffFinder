@@ -1,5 +1,6 @@
 package finder.forum;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,6 +14,8 @@ import java.io.IOException;
 public class XbikersComUa extends HTMLpage {
 
     public XbikersComUa(){
+        logger = Logger.getLogger("x-bikers");
+
         section = "cycle";
         title = "x-bikers.com.ua";
 
@@ -23,6 +26,7 @@ public class XbikersComUa extends HTMLpage {
         for(String currURL:urlList) {
             for(int i=0;i<=50;i++) {
                 String url = currURL + "/index.php?&page=" + i;
+                logger.debug("[" + logger.getName() + "]" + "get: " + url);
                 try {
                     Connection connection = Jsoup.connect(url);
                     connection.timeout(0);
@@ -33,11 +37,12 @@ public class XbikersComUa extends HTMLpage {
                         Document document = connection.get();
                         htmlList.add(document.select("body > table > tbody > tr:nth-child(2) > td.content > div:nth-child(8) > table > tbody > tr"));
                     } else {
-                        System.out.println("Page not found!");
+                        logger.error(logger.getName() +
+                                "\nPage not found");
                     }
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e.getStackTrace());
                 }
             }
         }

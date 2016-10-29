@@ -1,6 +1,7 @@
 package finder.forum;
 
 import finder.Thread;
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +13,8 @@ import java.io.IOException;
 public class FotoUa extends HTMLpage {
 
     public FotoUa() {
+        logger = Logger.getLogger("foto.ua");
+
         section = "photo";
         title = "foto.ua";
 
@@ -22,6 +25,7 @@ public class FotoUa extends HTMLpage {
         for(String currURL:urlList) {
             for(int i=1;i<=15;i++) {
                 String url = currURL + "/page" + i + "?order=desc";
+                logger.debug("[" + logger.getName() + "]" + "get: " + url);
                 try {
                     Connection connection = Jsoup.connect(url);
                     connection.timeout(0);
@@ -32,11 +36,12 @@ public class FotoUa extends HTMLpage {
                         Document document = connection.get();
                         htmlList.add(document.select("li.threadbit"));
                     } else {
-                        System.out.println("Page not found!");
+                        logger.error(logger.getName() +
+                                "\nPage not found");
                     }
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e.getStackTrace());
                 }
             }
         }

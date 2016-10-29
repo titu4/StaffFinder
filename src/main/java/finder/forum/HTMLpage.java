@@ -1,6 +1,7 @@
 package finder.forum;
 
 import finder.Thread;
+import org.apache.log4j.Logger;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class HTMLpage implements Forum {
+
+    Logger logger = Logger.getLogger(HTMLpage.class.getName());
 
     public String title;
     protected String section;
@@ -54,7 +57,8 @@ public abstract class HTMLpage implements Forum {
                 interests.add(element.getTextContent());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Load interests err:" +
+                    e.getStackTrace());
         }
     }
 
@@ -72,7 +76,8 @@ public abstract class HTMLpage implements Forum {
                     urlList.add(element.getTextContent());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Load location err:" +
+                    e.getStackTrace());
         }
     }
 }

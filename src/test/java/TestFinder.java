@@ -13,10 +13,7 @@ public class TestFinder {
         List<Thread> items = f.search();
 
         for (Thread t:items) {
-            System.out.println("-->" + t.getKeyword());
-            System.out.println(t.getDesc());
-            System.out.println(t.getLink());
-            System.out.println();
+            t.log();
         }
     }
 
@@ -27,10 +24,7 @@ public class TestFinder {
         List<Thread> items = f.search();
 
         for (Thread t:items) {
-            System.out.println("-->" + t.getKeyword() + "!");
-            System.out.println(t.getDesc());
-            System.out.println(t.getLink());
-            System.out.println();
+            t.log();
         }
     }
 
@@ -41,11 +35,7 @@ public class TestFinder {
         List<Thread> items = f.search();
 
         for (Thread t:items) {
-            System.out.println("-->" + t.getKeyword() + "!");
-            System.out.println(t.getTitle());
-            System.out.println(t.getDesc());
-            System.out.println(TouristKharkovUa.getBasseURL() + t.getLink());
-            System.out.println();
+            t.log();
         }
     }
 
