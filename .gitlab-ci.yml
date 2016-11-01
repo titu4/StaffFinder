@@ -1,4 +1,4 @@
-language: JAVA
-install: true
-jdk:
-  - oraclejdk8
+image: maven:3-jdk-8
+
+build:
+  script: "mvn clean verify"
