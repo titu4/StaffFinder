@@ -1,0 +1,4 @@
+language: JAVA
+install: true
+jdk:
+  - oraclejdk8
