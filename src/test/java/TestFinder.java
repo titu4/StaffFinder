@@ -1,8 +1,5 @@
 import finder.Thread;
-import finder.forum.Forum;
-import finder.forum.FotoUa;
-import finder.forum.TouristKharkovUa;
-import finder.forum.XbikersComUa;
+import finder.forum.*;
 import org.junit.Test;
 
 import java.util.List;
@@ -52,4 +49,18 @@ public class TestFinder {
         }
     }
 
+    @Test
+    public void kharkovforum() {
+        Forum f = new Kharkovforum();
+        f.get();
+        List<Thread> items = f.search();
+
+        for (Thread t:items) {
+            System.out.println("-->" + t.getKeyword() + "!");
+            System.out.println(t.getTitle());
+            System.out.println(t.getDesc());
+            System.out.println(t.getLink());
+            System.out.println();
+        }
+    }
 }
