@@ -20,7 +20,7 @@ public class Kharkovforum extends HTMLpage {
 
     public void get() {
         for(String currURL:urlList) {
-            for(int i=1;i<=5;i++) {
+            for(int i=1;i<=10;i++) {
                 String url = currURL + "/i" + i;
                 try {
                     Connection connection = Jsoup.connect(url);

@@ -20,7 +20,7 @@ public class FotoUa extends HTMLpage {
 
     public void get() {
         for(String currURL:urlList) {
-            for(int i=1;i<=5;i++) {
+            for(int i=1;i<=15;i++) {
                 String url = currURL + "/page" + i + "?order=desc";
                 try {
                     Connection connection = Jsoup.connect(url);

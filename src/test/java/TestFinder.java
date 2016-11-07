@@ -63,4 +63,19 @@ public class TestFinder {
             System.out.println();
         }
     }
+
+    @Test
+    public void PelotonComUa() {
+        Forum f = new PelotonComUa();
+        f.get();
+        List<Thread> items = f.search();
+
+        for (Thread t:items) {
+            System.out.println("-->" + t.getKeyword() + "!");
+            System.out.println(t.getTitle());
+            System.out.println(t.getDesc());
+            System.out.println(t.getLink());
+            System.out.println();
+        }
+    }
 }
